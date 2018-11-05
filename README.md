@@ -1,6 +1,6 @@
 # Tämä on ohte repo
 
-Tämä on  *ot2018* repositorio, **ÄLÄ SIIS KOPIO TÄÄLTÄ**
+Tämä on  *ot2018* repositorio, **ÄLÄ SIIS KOPIO TÄÄLTÄ!**
 
 ## Tehtävät
 
