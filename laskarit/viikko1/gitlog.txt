@@ -1,0 +1,116 @@
+jlares@lx8-fuxi153:~/Documents/YO/ohte/kurssit/ot2018$ git log --stat | cat
+commit 119422382837b1dbb7f2df1439d5ea8bbb74fc6b
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 10:15:00 2018 +0200
+
+    remove & rename
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit b4ede7efc5f7f6784c1638c339d28b7d1d7a4ef5
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 10:12:34 2018 +0200
+
+    new files
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 3583c3b984185f37d452b617fa0825697189abdd
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 10:09:42 2018 +0200
+
+    jeejee
+
+ eka.txt    | 2 +-
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 3e69a7b7fcab23149c12b35ff79eb5b7facb6d59
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 10:08:10 2018 +0200
+
+    rename
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 798b0c9d3d6ad6b8eda0ec1050d65c1c0bc653f6
+Author: Lares Johannes V T <jlares@cubbli18-gold.local>
+Date:   Mon Nov 5 10:06:42 2018 +0200
+
+    remove
+
+ toinen.txt                                         |  1 -
+ viikko1/Unicafe/pom.xml                            | 52 ---------------
+ .../java/com/mycompany/unicafe/Kassapaate.java     | 74 ----------------------
+ .../java/com/mycompany/unicafe/Maksukortti.java    | 36 -----------
+ .../java/com/mycompany/unicafe/Paaohjelma.java     | 14 ----
+ .../com/mycompany/unicafe/MaksukorttiTest.java     | 20 ------
+ 6 files changed, 197 deletions(-)
+
+commit fa972f7cabbbd5f5db4f95c4a39058f03b9c7e45
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 09:59:42 2018 +0200
+
+    lorem ipsum
+
+ tiedosto.txt | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+commit 21d8800fcdbcf0fb1ad5710c552f1255086572aa
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 09:57:03 2018 +0200
+
+    uus kansio ja file
+
+ stuff/tekstia.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit c6ffc433942fd59ca7797fb599e944a07872f01c
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 09:56:09 2018 +0200
+
+    edits
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit c573763fe56c1fe31f58960255a0552452d66836
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 09:55:24 2018 +0200
+
+    kolmas file
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 01e53c3b2ac8a1a1c17198a6cf981561fa97c26f
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 09:54:45 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt                                       |  1 +
+ toinen.txt                                         |  0
+ viikko1/Unicafe/pom.xml                            | 52 +++++++++++++++
+ .../java/com/mycompany/unicafe/Kassapaate.java     | 74 ++++++++++++++++++++++
+ .../java/com/mycompany/unicafe/Maksukortti.java    | 36 +++++++++++
+ .../java/com/mycompany/unicafe/Paaohjelma.java     | 14 ++++
+ .../com/mycompany/unicafe/MaksukorttiTest.java     | 20 ++++++
+ 7 files changed, 197 insertions(+)
+
+commit ff94453f3cdfe8bb753907e302845ef30bfa07d0
+Author: Johannes Lares <johannes.lares@helsinki.fi>
+Date:   Mon Nov 5 09:53:28 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+

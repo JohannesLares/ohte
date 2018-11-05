@@ -1,0 +1,132 @@
+jlares@melkinpaasi:~$ tree
+.
+├── Desktop -> /home/ad/home/j/jlares/Desktop
+├── Documents -> /home/ad/home/j/jlares/Documents
+├── Downloads -> /home/ad/home/j/jlares/Downloads
+├── kurssit
+│   └── ot2018
+│       └── viikko1
+│           └── Unicafe
+│               ├── pom.xml
+│               └── src
+│                   ├── main
+│                   │   ├── java
+│                   │   │   └── com
+│                   │   │       └── mycompany
+│                   │   │           └── unicafe
+│                   │   │               ├── Kassapaate.java
+│                   │   │               ├── Maksukortti.java
+│                   │   │               └── Paaohjelma.java
+│                   │   └── resources
+│                   └── test
+│                       └── java
+│                           └── com
+│                               └── mycompany
+│                                   └── unicafe
+│                                       └── MaksukorttiTest.java
+├── Music
+├── NetBeansProjects
+│   └── hy-tira-s18
+│       ├── viikko04-Viikko04Tehtava2
+│       │   ├── build
+│       │   │   ├── built-jar.properties
+│       │   │   ├── classes
+│       │   │   │   ├── Main.class
+│       │   │   │   └── Pinolaskin.class
+│       │   │   ├── empty
+│       │   │   ├── generated-sources
+│       │   │   │   └── ap-source-output
+│       │   │   └── test
+│       │   │       └── classes
+│       │   │           └── PinolaskinTest.class
+│       │   ├── build_errors.txt
+│       │   ├── build_log.txt
+│       │   ├── build.xml
+│       │   ├── lib
+│       │   │   ├── edu-test-utils-0.4.2.jar
+│       │   │   ├── junit-4.10.jar
+│       │   │   └── testrunner
+│       │   │       └── tmc-junit-runner.jar
+│       │   ├── manifest.mf
+│       │   ├── nbproject
+│       │   │   ├── build-impl.xml
+│       │   │   ├── genfiles.properties
+│       │   │   ├── private
+│       │   │   │   ├── private.properties
+│       │   │   │   └── private.xml
+│       │   │   ├── project.properties
+│       │   │   └── project.xml
+│       │   ├── src
+│       │   │   ├── Main.java
+│       │   │   └── Pinolaskin.java
+│       │   └── test
+│       │       └── PinolaskinTest.java
+│       ├── viikko04-Viikko04Tehtava3
+│       │   ├── build
+│       │   │   ├── built-jar.properties
+│       │   │   ├── classes
+│       │   │   │   ├── ListanLyhennys.class
+│       │   │   │   └── Main.class
+│       │   │   ├── empty
+│       │   │   ├── generated-sources
+│       │   │   │   └── ap-source-output
+│       │   │   └── test
+│       │   │       └── classes
+│       │   │           └── ListanLyhennysTest.class
+│       │   ├── build_errors.txt
+│       │   ├── build_log.txt
+│       │   ├── build.xml
+│       │   ├── lib
+│       │   │   ├── edu-test-utils-0.4.2.jar
+│       │   │   ├── junit-4.10.jar
+│       │   │   └── testrunner
+│       │   │       └── tmc-junit-runner.jar
+│       │   ├── manifest.mf
+│       │   ├── nbproject
+│       │   │   ├── build-impl.xml
+│       │   │   ├── genfiles.properties
+│       │   │   ├── private
+│       │   │   │   ├── private.properties
+│       │   │   │   └── private.xml
+│       │   │   ├── project.properties
+│       │   │   └── project.xml
+│       │   ├── src
+│       │   │   ├── ListanLyhennys.java
+│       │   │   └── Main.java
+│       │   └── test
+│       │       └── ListanLyhennysTest.java
+│       └── viikko04-Viikko04Tehtava6
+│           ├── build
+│           │   ├── built-jar.properties
+│           │   ├── classes
+│           │   │   ├── Main.class
+│           │   │   └── OikeaLaskin.class
+│           │   ├── empty
+│           │   └── generated-sources
+│           │       └── ap-source-output
+│           ├── build.xml
+│           ├── lib
+│           │   ├── edu-test-utils-0.4.2.jar
+│           │   ├── junit-4.10.jar
+│           │   └── testrunner
+│           │       └── tmc-junit-runner.jar
+│           ├── manifest.mf
+│           ├── nbproject
+│           │   ├── build-impl.xml
+│           │   ├── genfiles.properties
+│           │   ├── private
+│           │   │   ├── private.properties
+│           │   │   └── private.xml
+│           │   ├── project.properties
+│           │   └── project.xml
+│           ├── src
+│           │   ├── Main.java
+│           │   └── OikeaLaskin.java
+│           └── test
+│               └── OikeaLaskinTest.java
+├── Pictures
+├── Public
+├── Templates
+└── Videos
+
+66 directories, 62 files
