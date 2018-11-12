@@ -1,13 +1,13 @@
 # Aamulla luennolle botin vaatimuusmäärittely
 
 
-### Sovelluksen tarkoitus
+## Sovelluksen tarkoitus
 Sovellus on telegram botti. Sovellus lähettää aamuisin kysymyksen telegram viestinä, johon vastaamala saa tiedot, millä julkisen liikenteen välineellä ja mihin aikaan pitää lähteä, jotta ehtii hyvin päivän ensimmäiselle luennolle.
 
-### Käyttäjät
+## Käyttäjät
 Sovelluksessa tulee olemaan aluksi vain normaaleja käyttäjiä.
 
-### Perusversion toiminnallisuus
+## Perusversion toiminnallisuus
 Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 
 #### Käytön aloittamisen jälkeen
@@ -23,13 +23,13 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
   * Viestillä Exactum viikki saa reitin Exactumista Viikkiin.
 * Reitit tarjotaan HSL toiminta-alueen sisältä
 
-### Jatkokehitys
+## Jatkokehitys
 * Omia ajankohtia voi käyttää
 * Voi asettaa, kuinka kauan ennen luentoa kysymys tulee
 * Toiminta-alueen laajentaminen, esim. Turkuun ja Tampereelle
 * Opintoaikataulun lisäämisen helpottaminen
 
-### Käyttöliittymäkuvaus
+## Käyttöliittymäkuvaus
 Sovellus on viestipohjainen. Tässä kaksi esimerkkiä.
 
 ```
