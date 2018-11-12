@@ -2,7 +2,7 @@
 
 
 ### Sovelluksen tarkoitus
-Sovellus on telegram botti. Sovellus lähettää aamuisin kysymyksen telegram viestinä, johon vastaamala saa tiedot, millä julkisen liikenteen välineellä ja mihin aikaan pitää lähteä, jotta ehtii hyvin päivän ensimmäiselle luennolle
+Sovellus on telegram botti. Sovellus lähettää aamuisin kysymyksen telegram viestinä, johon vastaamala saa tiedot, millä julkisen liikenteen välineellä ja mihin aikaan pitää lähteä, jotta ehtii hyvin päivän ensimmäiselle luennolle.
 
 ### Käyttäjät
 Sovelluksessa tulee olemaan aluksi vain normaaleja käyttäjiä.
@@ -14,6 +14,7 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 * Käyttäjän tulee pystyä lisäämään tarvittavat Tiedot
   * Käyttäjä voi lisätä omat luentonsa (missä, monelta, mikä?)
   * Käyttäjä voi lisätä oman asuinpaikkansa
+    * Näissä käy normaali JSON
 * Botin tulee kysyä käyttäjältä luentopäivinä ajoissa, halutaanko reittitietoja
   * Tähän vastaamalla Kyllä, botti tarjoaa reittitiedot
   * Tähän vastaamalla Ei, botti ei jatka käyttäjän häiritsemistä
@@ -26,7 +27,7 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 * Omia ajankohtia voi käyttää
 * Voi asettaa, kuinka kauan ennen luentoa kysymys tulee
 * Toiminta-alueen laajentaminen, esim. Turkuun ja Tampereelle
-* johon
+* Opintoaikataulun lisäämisen helpottaminen
 
 ### Käyttöliittymäkuvaus
 Sovellus on viestipohjainen. Tässä kaksi esimerkkiä.
