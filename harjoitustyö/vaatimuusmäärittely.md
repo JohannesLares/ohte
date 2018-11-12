@@ -11,7 +11,7 @@ Sovelluksessa tulee olemaan aluksi vain normaaleja käyttäjiä.
 Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 
 #### Käytön aloittamisen jälkeen
-* Käyttäjän tulee pystyä lisäämään tarvittavat Tiedot
+* Käyttäjän tulee pystyä lisäämään tarvittavat tiedot
   * Käyttäjä voi lisätä omat luentonsa (missä, monelta, mikä?)
   * Käyttäjä voi lisätä oman asuinpaikkansa
     * Näissä käy normaali JSON
@@ -21,6 +21,7 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 * Käyttäjä voi myös kysyä muuna aikana reittitietoja
   * Esim. viestillä Exactum saa reitin kotoa Exactumiin
   * Viestillä Exactum viikki saa reitin Exactumista Viikkiin.
+  * Viestillä Exactum Koti saa reitin Exactumista kotiin
 * Reitit tarjotaan HSL toiminta-alueen sisältä
 
 ## Jatkokehitys
@@ -28,6 +29,7 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 * Voi asettaa, kuinka kauan ennen luentoa kysymys tulee
 * Toiminta-alueen laajentaminen, esim. Turkuun ja Tampereelle
 * Opintoaikataulun lisäämisen helpottaminen
+* Käyttäjä voi vastata aamulla tulevaan viestiin myöhemmin, jolloin botti laittaa uuden viestin ennen seuraavaa luentoa
 
 ## Käyttöliittymäkuvaus
 Sovellus on viestipohjainen. Tässä kaksi esimerkkiä.
