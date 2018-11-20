@@ -18,7 +18,7 @@ import java.io.FileWriter;
  */
 public class FileChatStateDao implements ChatStateDao{
     
-    private String file = "jokufile.json";
+    private String file = "chatstate.json";
     @Override
     public long createChat(Chat chat) {
         Gson gson = new Gson();
