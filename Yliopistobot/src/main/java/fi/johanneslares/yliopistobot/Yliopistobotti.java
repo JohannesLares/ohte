@@ -1,7 +1,7 @@
 package fi.johanneslares.yliopistobot;
 
-import fi.johanneslares.ylioistobot.dao.ChatStateDao;
-import fi.johanneslares.ylioistobot.dao.FileChatStateDao;
+import fi.johanneslares.yliopistobot.dao.ChatStateDao;
+import fi.johanneslares.yliopistobot.dao.FileChatStateDao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

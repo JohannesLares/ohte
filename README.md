@@ -1,15 +1,18 @@
 # Tämä on ohte repo
 
-Tämä on  *ot2018* repositorio, **ÄLÄ SIIS KOPIO TÄÄLTÄ!**
+Tämä on  *ot2018* repositorio
 
-## Tehtävät
+## Yliopistobotti
+Sovellus on Telegramissa toimiva botti, jonka tarkoituksena on tarjota käyttäjälle tarvittavat reittitiedot julkisella liikenteellä.
+Osa reittitiedoista tarjotaan automaattisesti kysymällä käyttäjältä, onko tämä menossa paikkaan x, kuten luennolle.
 
-### HARJOITUSTYÖ
+### Dokumentaatio
 [Vaatimusmäärittely](https://github.com/JohannesLares/ohte/blob/master/dokumentointi/vaatimusm%C3%A4%C3%A4rittely.md)
 
 [Työaikakirjanpito](https://github.com/JohannesLares/ohte/blob/master/dokumentointi/vaatimusm%C3%A4%C3%A4rittely.md)
 
-#### Viikko 1
-[gitlog.txt](https://github.com/JohannesLares/ohte/blob/master/laskarit/viikko1/gitlog.txt)
+### Huomioitavaa testaajalle
+Telegrambotin apikeyn saa telegramissa pyytämällä, @johanneslares
 
-[komentorivi.txt](https://github.com/JohannesLares/ohte/blob/master/laskarit/viikko1/komentorivi.txt)
+### Käyttö
+Bottia voi ajaa sekä komentoriviltä, että suoraan IDE:stä. Laita API avain tiedostoon fi.johanneslares.yliopistobot.Yliopistobotti kohtaan getBotToken().
