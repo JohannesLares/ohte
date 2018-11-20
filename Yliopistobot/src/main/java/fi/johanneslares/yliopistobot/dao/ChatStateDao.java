@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johanneslares.ylioistobot.dao;
+package fi.johanneslares.yliopistobot.dao;
 
 import fi.johanneslares.yliopistobot.Chat;
 
