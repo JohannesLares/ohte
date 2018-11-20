@@ -25,11 +25,12 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>  
+            </plugin> 
         </plugins>
 
     </build>
     <dependencies>
+        
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>

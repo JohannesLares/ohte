@@ -42,12 +42,18 @@ public class FileChatStateDao implements ChatStateDao{
             FileReader reader = new FileReader(new File(file));
             BufferedReader br = new BufferedReader(reader);
             String line;
+            boolean found = false;
             while((line = br.readLine()) != null){
                chat = gson.fromJson(line, Chat.class);
                 System.out.println(line);
                if(chat.getChatId() == chatId){
+                   found = true;
                    break;
                }
+            }
+            if(!found){
+                chat.setChatId(0);
+                chat.setStart(-1);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -56,8 +62,9 @@ public class FileChatStateDao implements ChatStateDao{
     }
     
     @Override
-    public void updateChat(Chat chat){
+    public boolean updateChat(Chat chat){
         Gson gson = new Gson();
+        boolean stat = false;
         try {
             FileReader reader = new FileReader(new File(file));
             BufferedReader br = new BufferedReader(reader);
@@ -71,9 +78,10 @@ public class FileChatStateDao implements ChatStateDao{
                     content += gson.toJson(chat) + "\n";
                     System.out.println();
                     System.out.println("chatId: " + chat.getChatId() + " start: " + chat.getStartStatus());
+                    stat = true;
                     break;
                 }else{
-                    content += line;
+                    content += line+"\n";
                 }
             }
             FileWriter writer = new FileWriter(new File(file), false);
@@ -82,6 +90,7 @@ public class FileChatStateDao implements ChatStateDao{
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return stat;
     }
     
 }

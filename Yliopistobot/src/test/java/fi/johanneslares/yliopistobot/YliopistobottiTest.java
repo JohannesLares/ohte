@@ -20,11 +20,6 @@ public class YliopistobottiTest {
     }
     
     @Test
-    public void getBotTokenReturnsCorrectValue(){
-        assertEquals("Dataa", botti.getBotToken());
-    }
-    
-    @Test
     public void getBotUsernameReturnsCorrectValue(){
         assertEquals("Yliopistobot", botti.getBotUsername());
     }
