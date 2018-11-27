@@ -6,3 +6,4 @@
 | 16.11 | 1| Maven projekti |
 |19.11|2|Botin koodaamista|
 |20.11|1|Botin testien kirjoittamista ja debuggailua|
+|27.11|6|Botin koodaamista, testien kirjoittamista, testaamista ja dokumentointia|
