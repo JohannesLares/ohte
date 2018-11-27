@@ -11,6 +11,7 @@ Osa reittitiedoista tarjotaan automaattisesti kysymällä käyttäjältä, onko 
 
 [Työaikakirjanpito](https://github.com/JohannesLares/ohte/blob/master/dokumentointi/vaatimusm%C3%A4%C3%A4rittely.md)
 
+[Arkkitehtuuri](https://github.com/JohannesLares/ohte/blob/master/dokumentointi/arkkitehtuuri.md)
 ### Huomioitavaa testaajalle
 Telegrambotin apikeyn saa telegramissa pyytämällä, @johanneslares
 
