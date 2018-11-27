@@ -17,7 +17,7 @@ public class Main {
      * 
      * @param args 
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi api = new TelegramBotsApi();
         try {
@@ -25,5 +25,7 @@ public class Main {
         } catch (TelegramApiRequestException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        AutoSender s = new AutoSender("Eka");
     }
 }
