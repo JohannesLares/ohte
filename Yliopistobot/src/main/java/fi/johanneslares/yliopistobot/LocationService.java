@@ -36,7 +36,7 @@ public class LocationService {
             }
             in.close();
             JsonObject object = new Gson().fromJson(content.toString(), JsonObject.class);
-            return object.get("bbox").getAsJsonArray().get(1) + " " + object.get("bbox").getAsJsonArray().get(0);
+            return object.get("bbox").getAsJsonArray().get(1) + "," + object.get("bbox").getAsJsonArray().get(0);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -48,9 +48,15 @@ public class LocationService {
     private static String buildLocation(String location) {
         String[] words = location.split(" ");
         String returnSt = "";
+        int i = 0;
         for (String word : words) {
+            if (i != 0) {
+                returnSt += "%20";
+            }
             returnSt += word;
+            i++;
         }
+        System.out.println(returnSt);
         return returnSt;
     }
 }

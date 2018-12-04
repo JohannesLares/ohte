@@ -148,6 +148,7 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         List<Lesson> lessons = user.getLessons();
         for (Lesson lesson : lessons) {
             sendMessage(chatId, lesson.toString());
+            ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), "");
         }
     }
 }

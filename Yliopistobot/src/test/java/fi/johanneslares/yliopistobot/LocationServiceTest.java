@@ -16,8 +16,8 @@ public class LocationServiceTest {
     
     @Test
     public void locationServiceWorks() {
-        String coordinates = LocationService.getCoordinates("Pietari Kalminkatu 5");
-        assertEquals(coordinates, "60.468913 22.289951");
+        String coordinates = LocationService.getCoordinates("Pietari Kalmin katu 5");
+        assertEquals(coordinates, "60.20442,24.961769");
     }
     
 }

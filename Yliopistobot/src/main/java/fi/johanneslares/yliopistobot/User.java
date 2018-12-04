@@ -62,6 +62,10 @@ public class User {
         return this.lessons;
     }
     
+    public String getLocationString() {
+        return this.homeLocation + "::" + this.coordinates;
+    }
+    
     @Override
     public String toString() {
         return this.chatId + " : " + this.homeLocation;

@@ -65,6 +65,10 @@ public class Lesson {
         return this.coordinates;
     }
     
+    public String getLocationString() {
+        return this.location + "::" + this.coordinates;
+    }
+    
     public void setCoordinates(String c) {
         this.coordinates = c;
     }
