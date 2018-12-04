@@ -48,10 +48,8 @@ public class FileUserDataDao implements UserDataDao {
             boolean found = false;
             while ((line = br.readLine()) != null) {
                 user = gson.fromJson(line, User.class);
-                System.out.println(line);
                 if (user.getChatId() == chatId) {
-                    found = true;
-                    break;
+                    return user;
                 }
             }
             if (!found) {
@@ -91,7 +89,7 @@ public class FileUserDataDao implements UserDataDao {
     }
     
     @Override
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         Gson gson = new Gson();
         List<User> users = new ArrayList<>();
         try {

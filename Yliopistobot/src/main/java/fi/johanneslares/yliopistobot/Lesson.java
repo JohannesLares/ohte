@@ -45,27 +45,27 @@ public class Lesson {
         return this.name;
     }   
     
-    public String getDayOfTheWeek(){
-        days.put("ma","01");
-        days.put("ti","02");
-        days.put("ke","03");
-        days.put("to","04");
-        days.put("pe","05");
-        days.put("la","06");
-        days.put("su","07");
+    public String getDayOfTheWeek() {
+        days.put("ma", "01");
+        days.put("ti", "02");
+        days.put("ke", "03");
+        days.put("to", "04");
+        days.put("pe", "05");
+        days.put("la", "06");
+        days.put("su", "07");
         String day = this.startTime.split(" ")[1].toLowerCase();
         return days.get(day);
     }
     
-    public String getStartTimeHhMm(){
+    public String getStartTimeHhMm() {
         return this.startTime.split(" ")[0];
     }
     
-    public String getCoordinates(){
+    public String getCoordinates() {
         return this.coordinates;
     }
     
-    public void setCoordinates(String c){
+    public void setCoordinates(String c) {
         this.coordinates = c;
     }
     

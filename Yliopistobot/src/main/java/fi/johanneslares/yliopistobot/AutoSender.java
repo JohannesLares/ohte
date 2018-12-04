@@ -19,12 +19,12 @@ import java.util.logging.Logger;
  *
  * @author jlares
  */
-public class AutoSender implements Runnable{
+public class AutoSender implements Runnable {
     private Thread t;
     private String threadName;
     private UserDataDao udd = new FileUserDataDao();
 
-    public AutoSender(String name){
+    public AutoSender(String name) {
         this.threadName = name;
         this.start();
     }
@@ -32,10 +32,7 @@ public class AutoSender implements Runnable{
     @Override
     public void run() {
         // This ain't the best algorithm I have written
-        
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm FF");
-        String startTime;
-        String day;
         
         while (true) {
             try {
@@ -55,7 +52,7 @@ public class AutoSender implements Runnable{
         }
     }
    
-    public void start () {
+    public void start() {
       //TODO this
         this.run();
     }

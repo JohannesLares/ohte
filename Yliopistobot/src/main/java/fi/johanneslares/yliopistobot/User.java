@@ -34,7 +34,7 @@ public class User {
         this.homeLocation = location;
     }
     
-    public void setCoordinates(String c){
+    public void setCoordinates(String c) {
         this.coordinates = c;
     }
     

@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LocationService{
+public class LocationService {
     static HttpURLConnection con;
     
     public static String getCoordinates(String location) {
@@ -28,18 +28,14 @@ public class LocationService{
             URL url = new URL("https://api.digitransit.fi/geocoding/v1/search?text=" + buildLocation(location) + "&size=1");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(
-              new InputStreamReader(con.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
             StringBuffer content = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
-                if(inputLine.contains("coordinates")) System.out.println("InputLine " + inputLine);
             }
             in.close();
             JsonObject object = new Gson().fromJson(content.toString(), JsonObject.class);
-            
-            System.out.println(object.get("bbox").getAsJsonArray().get(0) + " Coordinates");
             return object.get("bbox").getAsJsonArray().get(1) + " " + object.get("bbox").getAsJsonArray().get(0);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -49,7 +45,7 @@ public class LocationService{
     
     
     
-    private static String buildLocation(String location){
+    private static String buildLocation(String location) {
         String[] words = location.split(" ");
         String returnSt = "";
         for (String word : words) {
