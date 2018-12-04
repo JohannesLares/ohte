@@ -45,6 +45,7 @@ public class Yliopistobotti extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        //This could be multiple methods
         System.out.println(update.getMessage().getChat().getFirstName() + ": " + update.getMessage().getText());
         long chatId = update.getMessage().getChatId();
         Chat chat = fcsd.getChatState(chatId);
