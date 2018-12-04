@@ -17,10 +17,12 @@ public class User {
     private long chatId;
     private String homeLocation;
     private List<Lesson> lessons;
+    private String coordinates;
     
     public User(long chatId) {
         this.chatId = chatId;
         this.homeLocation = "";
+        this.coordinates = "";
         this.lessons = new ArrayList<>();
     }
     
@@ -30,6 +32,10 @@ public class User {
     
     public void setHomeLocation(String location) {
         this.homeLocation = location;
+    }
+    
+    public void setCoordinates(String c){
+        this.coordinates = c;
     }
     
     public void addLesson(Lesson lesson) {
@@ -46,6 +52,10 @@ public class User {
     
     public String getHomeLocation() {
         return this.homeLocation;
+    }
+    
+    public String getCoordinates() {
+        return this.coordinates;
     }
     
     public List<Lesson> getLessons() {

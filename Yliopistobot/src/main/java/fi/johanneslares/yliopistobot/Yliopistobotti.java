@@ -4,6 +4,9 @@ import fi.johanneslares.yliopistobot.dao.ChatStateDao;
 import fi.johanneslares.yliopistobot.dao.FileChatStateDao;
 import fi.johanneslares.yliopistobot.dao.FileUserDataDao;
 import fi.johanneslares.yliopistobot.dao.UserDataDao;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -23,7 +26,21 @@ public class Yliopistobotti extends TelegramLongPollingBot {
     
     @Override
     public String getBotToken() {
-        return "Dataa";
+        String key = "Dataa";
+        try {
+            FileReader reader = new FileReader(new File("bot.conf"));
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.split("=")[0].equals("Bot_Key")) {
+                    key = line.split("=")[1];
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return key;
     }
 
     @Override
@@ -45,8 +62,10 @@ public class Yliopistobotti extends TelegramLongPollingBot {
                 User user = new User(chat.getChatId());
                 System.out.println("UserChatID: " + user.getChatId());
                 user.setHomeLocation(message);
+                user.setCoordinates(LocationService.getCoordinates(message));
                 udd.updateUser(user);
                 System.out.println(user.toString());
+                System.out.println(LocationService.getCoordinates(message) + " Locationservice");
                 sendMessage(chat.getChatId(), "Kiitos");
                 chat.setStart(2);
                 this.fcsd.updateChat(chat);
@@ -93,23 +112,28 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         } else if (chat.getStartStatus() == 4) {
             lesson = chat.getLesson();
             lesson.setLocation(msg);
+            lesson.setCoordinates(LocationService.getCoordinates(msg));
             chat.setLesson(lesson);
             sendMessage(chat.getChatId(), "Milloin luentosi alkaa? Anna muodossa hh:mm dd (hh = tunti 00-23, mm = minuutti 00-59, dd = päivä Ma-Su)");
             chat.setStart(5);
             this.fcsd.updateChat(chat);
         } else if (chat.getStartStatus() == 5) {
-            lesson = chat.getLesson();
-            lesson.setStartTime(msg);
-            chat.setLesson(lesson);
-            sendMessage(chat.getChatId(), "Milloin luentosi loppuu? Anna muodossa hh:mm");
-            chat.setStart(6);
-            this.fcsd.updateChat(chat);
+            if (msg.split(" ").length > 1) {
+                lesson = chat.getLesson();
+                lesson.setStartTime(msg);
+                chat.setLesson(lesson);
+                sendMessage(chat.getChatId(), "Milloin luentosi loppuu? Anna muodossa hh:mm");
+                chat.setStart(6);
+                this.fcsd.updateChat(chat);
+            } else {
+                sendMessage(chat.getChatId(), "Anna aloitus ajankohta muodossa hh:mm dd (hh = tunti 00-23, mm = minuutti 00-59, dd = päivä Ma-Su)");
+            }
         } else if (chat.getStartStatus() == 6) {
             lesson = chat.getLesson();
             lesson.setEndTime(msg);
             chat.setLesson(lesson);
             User user = udd.getUser(chat.getChatId());
-            System.out.println("First lesson of User: " + user.getLessons().get(0).toString());
+            //System.out.println("First lesson of User: " + user.getLessons().get(0).toString());
             user.addLesson(lesson);
             udd.updateUser(user);
             sendMessage(chat.getChatId(), "Kiitos, luentosi on lisätty. Voit lisätä uuden luennon komennolla /lisaa. Voit tarkastella luentojasi komennolla /luennot");

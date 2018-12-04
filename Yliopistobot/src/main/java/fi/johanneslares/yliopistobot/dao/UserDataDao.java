@@ -6,6 +6,7 @@
 package fi.johanneslares.yliopistobot.dao;
 
 import fi.johanneslares.yliopistobot.User;
+import java.util.List;
 
 /**
  *
@@ -15,5 +16,6 @@ public interface UserDataDao {
     void createUser(User user);
     void updateUser(User user);
     User getUser(long chatId);
+    List<User> getUsers();
     
 }
