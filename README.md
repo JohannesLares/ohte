@@ -24,4 +24,4 @@ Lisää @Yliopisto_bot. Tämän jälkeen, jos komento /start ei ole automaattise
 Botti myös kertoo, mitä komentoja tällä hetkellä on käytettävissä.
 
 Kun lataat botin, pitää sinun luoda aluksi projektin juureen tiedosto bot.conf
-Lisää tähän tiedostoon rivi "Bot_Key=<Insert Key Here>"
+Lisää tähän tiedostoon rivi "Bot_Key=\<Insert Key Here\>"
