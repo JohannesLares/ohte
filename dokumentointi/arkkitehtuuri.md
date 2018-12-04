@@ -1,2 +1,2 @@
 ![Luokkakaavio](./Luokkakaavio.png)
-![Sekvenssikaavio](-/sekvenssi.png)
+![Sekvenssikaavio](./sekvenssi.png)
