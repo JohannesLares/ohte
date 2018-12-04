@@ -64,4 +64,10 @@ public class LessonTest {
         lesson.setEndTime("15:00");
         assertEquals(lesson.toString(), "Name: Linis\nLocation: Helsinki\nStart time: 13:00 Ti\nEnd time: 15:00");
     }
+    
+    @Test
+    public void getDayOfTheWeekWorks() {
+        lesson.setStartTime("10:00 Ke");
+        assertEquals(lesson.getDayOfTheWeek(), "03");
+    }
 }
