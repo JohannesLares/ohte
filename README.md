@@ -20,3 +20,6 @@ Bottia voi ajaa sekä komentoriviltä, että suoraan IDE:stä. Laita API avain t
 Botin käyttö telegramissa:
 Lisää @Yliopisto_bot. Tämän jälkeen, jos komento /start ei ole automaattisesti lähetetty, lähetä se, Botti ohjaa toimintaa siitä eteenpäin.
 Botti myös kertoo, mitä komentoja tällä hetkellä on käytettävissä.
+
+Kun lataat botin, pitää sinun luoda aluksi projektin juureen tiedosto bot.conf
+Lisää tähän tiedostoon rivi "Bot_Key=<Insert Key Here>"
