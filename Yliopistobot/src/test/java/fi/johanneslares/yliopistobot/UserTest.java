@@ -31,8 +31,8 @@ public class UserTest {
     
     @Test
     public void lessonsWorkWithUser() {
-        user.addLesson(new Lesson("Exactum", "TEST", "10:00 Ti", "12:00"));
-        user.addLesson(new Lesson("Exactum2", "NewTest", "12:00 Ti", "12:30"));
+        user.addLesson(new Lesson("Exactum", "TEST", "10:00 Ti", "12:00", "60.109901 25.1111"));
+        user.addLesson(new Lesson("Exactum2", "NewTest", "12:00 Ti", "12:30", "60.109901 25.1111"));
         assertEquals(user.getLessons().get(0).getLocation(), "Exactum");
         assertEquals(user.getLessons().get(0).getName(), "TEST");
         assertEquals(user.getLessons().get(1).getLocation(), "Exactum2");
@@ -43,8 +43,8 @@ public class UserTest {
     @Test
     public void setLessonsWorks() {
         List<Lesson> lessons = new ArrayList<>();
-        lessons.add(new Lesson("Exactum3", "TEST1", "10:00 Ti", "12:00"));
-        lessons.add(new Lesson("Exactum4", "NewTest", "12:00 Ti", "12:30"));
+        lessons.add(new Lesson("Exactum3", "TEST1", "10:00 Ti", "12:00", "60.109901 25.1111"));
+        lessons.add(new Lesson("Exactum4", "NewTest", "12:00 Ti", "12:30", "60.109901 25.1111"));
         user.setLessons(lessons);
         assertEquals(user.getLessons().get(0).getLocation(), "Exactum3");
         assertEquals(user.getLessons().get(0).getName(), "TEST1");
