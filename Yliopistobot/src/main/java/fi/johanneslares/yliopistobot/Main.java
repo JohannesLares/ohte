@@ -22,7 +22,7 @@ public class Main {
         TelegramBotsApi api = new TelegramBotsApi();
         try {
             api.registerBot(new Yliopistobotti());
-        } catch (TelegramApiRequestException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         

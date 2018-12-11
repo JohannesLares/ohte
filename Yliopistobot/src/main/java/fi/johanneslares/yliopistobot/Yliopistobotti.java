@@ -28,7 +28,7 @@ public class Yliopistobotti extends TelegramLongPollingBot {
     public String getBotToken() {
         String key = "Dataa";
         try {
-            FileReader reader = new FileReader(new File("bot.conf"));
+            FileReader reader = new FileReader(new File("./bot.conf"));
             BufferedReader br = new BufferedReader(reader);
             String line;
             while ((line = br.readLine()) != null) {
@@ -49,28 +49,12 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         System.out.println(update.getMessage().getChat().getFirstName() + ": " + update.getMessage().getText());
         long chatId = update.getMessage().getChatId();
         Chat chat = fcsd.getChatState(chatId);
-        if (update.getMessage().getText().equals("/start") && chat.getChatId() == 0) {
-            chat = new Chat();
-            chat.setChatId(chatId);
-            chat.setStart(1);
-            User user = new User(chat.getChatId());
-            this.udd.createUser(user);
-            this.fcsd.createChat(chat);
-            sendMessage(chatId, "Hei, olet aloittamassa menossa luennolle aamulla botin käytön. \nSeuraavaksi tarvitsen kotipaikkasi.");
+        String message = update.getMessage().getText();
+        if (message.equals("/start") && chat.getChatId() == 0) {
+            this.createNewUser(chatId);
         } else {
-            String message = update.getMessage().getText();
             if (chat.getChatId() > 0 && chat.getStartStatus() < 2) {
-                User user = new User(chat.getChatId());
-                System.out.println("UserChatID: " + user.getChatId());
-                user.setHomeLocation(message);
-                user.setCoordinates(LocationService.getCoordinates(message));
-                udd.updateUser(user);
-                System.out.println(user.toString());
-                System.out.println(LocationService.getCoordinates(message) + " Locationservice");
-                sendMessage(chat.getChatId(), "Kiitos");
-                chat.setStart(2);
-                this.fcsd.updateChat(chat);
-                sendMessage(chat.getChatId(), "Voit lisätä uusia luentoja komenolla /lisaa");
+                this.onHomeLocationReceived(message, chat);
             } else {
                 if (message.equals("/lisaa") || (chat.getStartStatus() > 2 && chat.getStartStatus() < 10)) {
                     addNewLesson(chat, update.getMessage().getText());
@@ -88,8 +72,32 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         return "Yliopistobot";
     }
     
+    private void createNewUser(long chatId) {
+        Chat chat = new Chat();
+        chat.setChatId(chatId);
+        chat.setStart(1);
+        User user = new User(chatId);
+        this.udd.createUser(user);
+        this.fcsd.createChat(chat);
+        sendMessage(chatId, "Hei, olet aloittamassa menossa luennolle aamulla botin käytön. \nSeuraavaksi tarvitsen kotipaikkasi.");
+    }
     
-    private void sendMessage(long chatId, String msg) {
+    private void onHomeLocationReceived(String message, Chat chat) {
+        User user = new User(chat.getChatId());
+        System.out.println("UserChatID: " + user.getChatId());
+        user.setHomeLocation(message);
+        user.setCoordinates(LocationService.getCoordinates(message));
+        udd.updateUser(user);
+        System.out.println(user.toString());
+        System.out.println(LocationService.getCoordinates(message) + " Locationservice");
+        sendMessage(chat.getChatId(), "Kiitos");
+        chat.setStart(2);
+        this.fcsd.updateChat(chat);
+        sendMessage(chat.getChatId(), "Voit lisätä uusia luentoja komenolla /lisaa");
+    }
+    
+    
+    public void sendMessage(long chatId, String msg) {
         SendMessage message = new SendMessage().setChatId(chatId).setText(msg);
         try {
             execute(message);
@@ -148,7 +156,7 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         List<Lesson> lessons = user.getLessons();
         for (Lesson lesson : lessons) {
             sendMessage(chatId, lesson.toString());
-            ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), "");
+            sendMessage(chatId, ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), "", lesson.getName()));
         }
     }
 }

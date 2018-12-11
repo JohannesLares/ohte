@@ -1,13 +1,21 @@
 package fi.johanneslares.yliopistobot;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,25 +44,32 @@ public class ItineraryService {
 "        distance\n" +
 "        legGeometry {\n" +
 "          length\n" +
-"        }\n" +
+"        }\n" + 
+"        trip {\n" +
+"          tripHeadsign\n" +
+"          routeShortName\n" +
+"        }" +
 "      }\n" +
 "    }\n" +
 "  }";
     private static String requestUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
     
-    public static List<ItineraryLeg> getItinerary(String start, String end, String date){
+    public static String getItinerary(String start, String end, String time, String name) {
+        String result = "";
+        time += ":00";
+        String date = getDateAsString();
+        System.out.println(date + " " + time);
         try {
-            System.out.println("start " + start + " end " + end);
-            String query = itineraryRequestStart + "\"" + start + "\",\n" + "toPlace: \"" + end + "\",\n)" + itineraryRequestEnd + "\n}"; 
-            System.out.println(query);
-            sendRequest(query);
+            String query = itineraryRequestStart + "\"" + start + "\",\n" + "toPlace: \"" + end + "\",\ndate: \"" + date + "\",\ntime: \"" + time + "\",\n arriveBy: true,\n)" + itineraryRequestEnd + "\n}"; 
+            JsonObject object = sendRequest(query);
+            result = handleItineraryPlans(object, time, name);
         } catch (Exception ex) {
             Logger.getLogger(ItineraryService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new ArrayList<ItineraryLeg>();
+        return result;
     }
     
-    private static void sendRequest(String query) throws Exception{
+    private static JsonObject sendRequest(String query) throws Exception {
         URL url = new URL(requestUrl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -65,14 +80,56 @@ public class ItineraryService {
         out.flush();
         out.close();
         System.out.println(con.getResponseCode() + " HSL response code");
-        BufferedReader in = new BufferedReader(
-            new InputStreamReader(con.getInputStream()));
-          String inputLine;
-          StringBuffer content = new StringBuffer();
-          while ((inputLine = in.readLine()) != null) {
-              content.append(inputLine);
-          }
-          in.close();
-          System.out.println(content.toString());
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        System.out.println(content.toString());
+        return new Gson().fromJson(content.toString(), JsonObject.class);
+    }
+    
+    private static String handleItineraryPlans(JsonObject obj, String time, String name) {
+        String ret = "Reitti luennolle " + name + " kello " + time + "\n";
+        JsonObject firstItinerary = obj.get("data").getAsJsonObject().get("plan").getAsJsonObject().get("itineraries").getAsJsonArray().get(0).getAsJsonObject();
+        JsonArray legs = firstItinerary.get("legs").getAsJsonArray();
+        for (JsonElement leg : legs) {
+            JsonObject object = leg.getAsJsonObject();
+            String headsign = "";
+            System.out.println(object.get("trip").isJsonNull());
+            if (!object.get("trip").isJsonNull()) {
+                headsign = " " + object.get("trip").getAsJsonObject().get("routeShortName").getAsString() + " kohti " + object.get("trip").getAsJsonObject().get("tripHeadsign").getAsString();
+            }
+            ret += "\nMene " + getMethodOfTransportation(object.get("mode").getAsString()) + headsign + " paikasta " + object.get("from").getAsJsonObject().get("name").getAsString() + " paikkaan "
+                    + object.get("to").getAsJsonObject().get("name").getAsString() + " kello " + getTimeAsString(object.get("startTime").getAsLong()) + "\n";
+            // System.out.println(leg.getAsJsonObject().get("mode") + leg.getAsJsonObject().get("from").getAsJsonObject().get("name").getAsString());
+        }
+        // System.out.println(firstItinerary.get("legs").getAsJsonArray().get(0));
+        return ret;
+    }
+    
+    private static String getMethodOfTransportation(String method) {
+        Map<String, String> methods = new HashMap<>();
+        methods.put("WALK", "kävellen");
+        methods.put("BUS", "busilla");
+        methods.put("SUBWAY", "metrolla");
+        methods.put("RAIL", "junalla");
+        methods.put("TRAM", "raitiovaunulla");
+        methods.put("FERRY", "lautalla");
+        return methods.get(method);
+    }
+    
+    private static String getTimeAsString(long time){
+        Date date = new Date(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(date);
+    }
+    
+    private static String getDateAsString() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
     }
 }

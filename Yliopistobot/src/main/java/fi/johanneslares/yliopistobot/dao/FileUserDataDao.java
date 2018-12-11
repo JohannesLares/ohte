@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class FileUserDataDao implements UserDataDao {
 
-    private String file = "user.json";
+    private String file = "./user.json";
     
     @Override
     public void createUser(User user) {

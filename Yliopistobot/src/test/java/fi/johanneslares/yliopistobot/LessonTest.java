@@ -68,6 +68,6 @@ public class LessonTest {
     @Test
     public void getDayOfTheWeekWorks() {
         lesson.setStartTime("10:00 Ke");
-        assertEquals(lesson.getDayOfTheWeek(), "03");
+        assertEquals(lesson.getDayOfTheWeek(), 3);
     }
 }
