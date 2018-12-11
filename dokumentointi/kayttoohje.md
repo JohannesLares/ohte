@@ -7,7 +7,7 @@ Github repositorio sisältää kaikki tarvittavat tiedostot, jotta voit käyttä
 Jos ohjelma ladataan .jar tiedostona, on juurihakemistoon luotava _bot.conf_, _user.json_ ja _chatstate.json_.
 Jätä _user.json_ ja _chatstate.json_ tiedostot tyhjiksi, mutta muokkaa _bot.conf_:
 ```
-Bot_Key=\<Insert key here\>
+Bot_Key=<Insert key here>
 ```
 Eli kohtaan _\<Insert key here\>_ tulee telegram api key.
 
