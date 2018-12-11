@@ -16,6 +16,12 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * Class provides itinerary service to Yliopistobot.
+ * 
+ * @author jlares
+ */
 public class ItineraryService {
     private static String itineraryRequestStart = "{\n" +
         "  plan(\n" +
@@ -50,6 +56,14 @@ public class ItineraryService {
         "    }\n" +
         "  }";
     private static String requestUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
+    
+    /**
+     * @param start Start location
+     * @param end End location
+     * @param time time, when should arrive to end location
+     * @param name name of the lesson, where are going
+     * @return Message with itinerary suggestion
+     */
     
     public static String getItinerary(String start, String end, String time, String name) {
         String result = "";
@@ -106,6 +120,11 @@ public class ItineraryService {
         return ret;
     }
     
+    
+    /**
+     * @param method method of transportation
+     * @return method of transportation in Finnish
+     */
     public static String getMethodOfTransportation(String method) {
         Map<String, String> methods = new HashMap<>();
         methods.put("WALK", "kävellen");

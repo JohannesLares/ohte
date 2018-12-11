@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class is responsible of sending automatic messages to chats
  * @author jlares
  */
 public class AutoSender implements Runnable {
@@ -28,17 +28,29 @@ public class AutoSender implements Runnable {
     private Yliopistobotti bot = new Yliopistobotti();
     private boolean test = false;
 
+    /**
+     * Create new AutoSender thread.
+     * @param name thread name
+     */
     public AutoSender(String name) {
         this.threadName = name;
         this.run();
     }
     
+    /**
+     * This is only for testing purposes
+     * @param name Thread name
+     * @param test if true, thread will be stopped shortly after start.
+     */
     public AutoSender(String name, boolean test) {
         this.threadName = name;
         this.test = test;
         this.run();
     }
     
+    /**
+     * Start new thread. This method loops through every user and their lessons and gets itinerary if necessary.
+     */
     @Override
     public void run() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm u");
@@ -63,10 +75,20 @@ public class AutoSender implements Runnable {
         }
     }
     
+    /**
+     * 
+     * @return thread name 
+     */
     public String getName() {
         return this.threadName;
     }
     
+    /**
+     * 
+     * @param time Lesson start time
+     * @param user User, which lesson it is
+     * @param lesson Lesson, where we want to go
+     */
     public void getSuggestedRoute(String time, User user, Lesson lesson) {
         int hours = Integer.parseInt(time.split(":")[0]);
         int min = Integer.parseInt(time.split(":")[1]);
@@ -86,6 +108,11 @@ public class AutoSender implements Runnable {
         }
     }
     
+    /**
+     * 
+     * @param user User to send itinerary suggestion
+     * @param lesson Lesson, where user is going
+     */
     public void getRouteAndQueue(User user, Lesson lesson) {
         //TODO another thread to handle getItinerary.
         System.out.println("Kaksi tuntia aikaa, ennen kuin luento " + lesson.getName() + " alkaa chatissa " + user.getChatId());

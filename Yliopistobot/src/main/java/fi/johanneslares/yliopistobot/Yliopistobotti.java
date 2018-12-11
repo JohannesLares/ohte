@@ -24,6 +24,10 @@ public class Yliopistobotti extends TelegramLongPollingBot {
     private ChatStateDao fcsd = new FileChatStateDao();
     private UserDataDao udd = new FileUserDataDao();
     
+    /**
+     * Read Telegram api key from bot.conf file
+     * @return Telegram api key or dataa, if no api key found from file
+     */
     @Override
     public String getBotToken() {
         String key = "Dataa";
@@ -43,6 +47,10 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         return key;
     }
 
+    /**
+     * Called, if Telegram message has arrived.
+     * @param update Contains all message information, ex. chatId.
+     */
     @Override
     public void onUpdateReceived(Update update) {
         //This could be multiple methods
@@ -67,6 +75,10 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         
     }
 
+    /**
+     * To return bot username
+     * @return Bot username 
+     */
     @Override
     public String getBotUsername() {
         return "Yliopistobot";
@@ -96,7 +108,11 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         sendMessage(chat.getChatId(), "Voit lisätä uusia luentoja komenolla /lisaa");
     }
     
-    
+    /**
+     * Send message to specific chat
+     * @param chatId Id of the telegram chat
+     * @param msg message to send
+     */
     public void sendMessage(long chatId, String msg) {
         SendMessage message = new SendMessage().setChatId(chatId).setText(msg);
         try {
