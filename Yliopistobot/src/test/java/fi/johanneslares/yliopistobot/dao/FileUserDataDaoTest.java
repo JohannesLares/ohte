@@ -77,4 +77,10 @@ public class FileUserDataDaoTest {
         assertEquals(udd.getUsers().get(1).getChatId(), 12345);
         tearDown();
     }
+    
+    @Test
+    public void getUserReturnsChatId0() {
+        User us = udd.getUser(1234567);
+        assertEquals(us.getChatId(), 0);
+    }
 }

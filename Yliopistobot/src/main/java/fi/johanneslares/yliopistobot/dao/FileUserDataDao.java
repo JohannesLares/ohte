@@ -6,7 +6,6 @@
 package fi.johanneslares.yliopistobot.dao;
 
 import com.google.gson.Gson;
-import fi.johanneslares.yliopistobot.Chat;
 import fi.johanneslares.yliopistobot.User;
 import java.io.BufferedReader;
 import java.io.File;

@@ -8,50 +8,47 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ItineraryService {
     private static String itineraryRequestStart = "{\n" +
-"  plan(\n" +
-"    fromPlace: ";
+        "  plan(\n" +
+        "    fromPlace: ";
     private static String itineraryRequestEnd = " {\n" +
-"    itineraries{\n" +
-"      walkDistance,\n" +
-"      duration,\n" +
-"      legs {\n" +
-"        mode\n" +
-"        startTime\n" +
-"        endTime\n" +
-"        from {\n" +
-"          name\n" +
-"          stop {\n" +
-"            code\n" +
-"            name\n" +
-"          }\n" +
-"        },\n" +
-"        to {\n" +
-"          name\n" +
-"        },\n" +
-"        distance\n" +
-"        legGeometry {\n" +
-"          length\n" +
-"        }\n" + 
-"        trip {\n" +
-"          tripHeadsign\n" +
-"          routeShortName\n" +
-"        }" +
-"      }\n" +
-"    }\n" +
-"  }";
+        "    itineraries{\n" +
+        "      walkDistance,\n" +
+        "      duration,\n" +
+        "      legs {\n" +
+        "        mode\n" +
+        "        startTime\n" +
+        "        endTime\n" +
+        "        from {\n" +
+        "          name\n" +
+        "          stop {\n" +
+        "            code\n" +
+        "            name\n" +
+        "          }\n" +
+        "        },\n" +
+        "        to {\n" +
+        "          name\n" +
+        "        },\n" +
+        "        distance\n" +
+        "        legGeometry {\n" +
+        "          length\n" +
+        "        }\n" + 
+        "        trip {\n" +
+        "          tripHeadsign\n" +
+        "          routeShortName\n" +
+        "        }" +
+        "      }\n" +
+        "    }\n" +
+        "  }";
     private static String requestUrl = "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
     
     public static String getItinerary(String start, String end, String time, String name) {
@@ -87,7 +84,6 @@ public class ItineraryService {
             content.append(inputLine);
         }
         in.close();
-        System.out.println(content.toString());
         return new Gson().fromJson(content.toString(), JsonObject.class);
     }
     
@@ -110,7 +106,7 @@ public class ItineraryService {
         return ret;
     }
     
-    private static String getMethodOfTransportation(String method) {
+    public static String getMethodOfTransportation(String method) {
         Map<String, String> methods = new HashMap<>();
         methods.put("WALK", "kävellen");
         methods.put("BUS", "busilla");
@@ -121,7 +117,7 @@ public class ItineraryService {
         return methods.get(method);
     }
     
-    private static String getTimeAsString(long time){
+    private static String getTimeAsString(long time) {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         return sdf.format(date);

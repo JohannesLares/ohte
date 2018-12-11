@@ -26,18 +26,22 @@ public class AutoSender implements Runnable {
     private UserDataDao udd = new FileUserDataDao();
     private long fetchBeforeArrive = 7200;
     private Yliopistobotti bot = new Yliopistobotti();
+    private boolean test = false;
 
     public AutoSender(String name) {
         this.threadName = name;
-        this.start();
+        this.run();
+    }
+    
+    public AutoSender(String name, boolean test) {
+        this.threadName = name;
+        this.test = test;
+        this.run();
     }
     
     @Override
     public void run() {
-        System.out.println("Start");
-        // This ain't the best algorithm I have written
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm u");
-        
         while (true) {
             try {
                 String date = sdf.format(new Date());
@@ -46,37 +50,34 @@ public class AutoSender implements Runnable {
                     for (Lesson lesson : user.getLessons()) {
                         if (lesson.getDayOfTheWeek() == Integer.parseInt(date.split(" ")[1])) {
                             this.getSuggestedRoute(lesson.getStartTimeHhMm(), user, lesson);
-                        } else {
-                            //System.out.println(lesson.getDayOfTheWeek() + " " + date.split(" ")[1]);
                         }
                     }
                 }
                 Thread.sleep(1000);
+                if (test) {
+                    break;
+                }
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
         }
     }
     
-    public void start() {
-      //TODO this
-        this.run();
+    public String getName() {
+        return this.threadName;
     }
     
-    public void getSuggestedRoute(String time, User user, Lesson lesson){
+    public void getSuggestedRoute(String time, User user, Lesson lesson) {
         int hours = Integer.parseInt(time.split(":")[0]);
         int min = Integer.parseInt(time.split(":")[1]);
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         Date calDate = cal.getTime();
         int day = cal.get(Calendar.DATE);
         int month = cal.get(Calendar.MONTH);
-        int year = cal.get(Calendar.YEAR)-1900;
+        int year = cal.get(Calendar.YEAR) - 1900;
         Date date = new Date(year, month, day, hours, min);
-        System.out.println(date);
         long unixTime = System.currentTimeMillis() / 1000L;
         long unixTime2 = date.getTime() / 1000L;
-        System.out.println(calDate);
-        System.out.println(unixTime + " " + (unixTime2));
         if (unixTime + fetchBeforeArrive == unixTime2) {
             System.out.println((System.currentTimeMillis() + fetchBeforeArrive) + " | " + date.getTime());
             getRouteAndQueue(user, lesson);

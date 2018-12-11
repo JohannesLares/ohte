@@ -33,6 +33,25 @@ public class LessonTest {
     }
     
     @Test
+    public void getStartTimeHhMmWorks() {
+        lesson.setStartTime("10:00 Ma");
+        assertEquals(lesson.getStartTimeHhMm(), "10:00");
+    }
+    
+    @Test
+    public void getCoordinatesWorks() {
+        lesson.setCoordinates("60.123245,24.98765");
+        assertEquals(lesson.getCoordinates(), "60.123245,24.98765");
+    }
+    
+    @Test
+    public void getLocationStringWorks() {
+        lesson.setLocation("TEST123");
+        lesson.setCoordinates("60.12345,24.12345");
+        assertEquals(lesson.getLocationString(), "TEST123::60.12345,24.12345");
+    }
+    
+    @Test
     public void setStartTimeWorks() {
         lesson.setStartTime("12:00 Ti");
         assertEquals(lesson.getStartTime(), "12:00 Ti");
