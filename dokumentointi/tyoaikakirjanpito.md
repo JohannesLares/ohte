@@ -11,4 +11,5 @@
 |4.12| 4 | koodaaminen ja lisää tutustumista hsl api|
 |8.12| 4 | AutoSender koodaaminen |
 |11.12| 4 | Testien koodaaminen ja muuta koodin muokkaamista |
-||26|Yhteensä|
+|11.12| 3 | Dokumentaation luomista, JavaDoc |
+||29|Yhteensä|
