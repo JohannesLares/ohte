@@ -9,4 +9,6 @@
 |27.11|6|Botin koodaamista, testien kirjoittamista, testaamista ja dokumentointia|
 |3.12| 2 | Tutustuminen hsl api|
 |4.12| 4 | koodaaminen ja lisää tutustumista hsl api|
-||18|Yhteensä|
+|8.12| 4 | AutoSender koodaaminen |
+|11.12| 4 | Testien koodaaminen ja muuta koodin muokkaamista |
+||26|Yhteensä|
