@@ -25,3 +25,4 @@ Botti myös kertoo, mitä komentoja tällä hetkellä on käytettävissä.
 
 Kun lataat botin, pitää sinun luoda aluksi projektin juureen tiedosto bot.conf
 Lisää tähän tiedostoon rivi "Bot_Key=\<Insert Key Here\>"
+Projektin juureen pitää luoda myös tiedostot user.json ja chatstate.json . Jätä nämä tiedostot tyhjiksi.
