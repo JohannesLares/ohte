@@ -1,5 +1,7 @@
 package fi.johanneslares.yliopistobot;
 
+import fi.johanneslares.yliopistobot.services.ItineraryService;
+import fi.johanneslares.yliopistobot.services.LocationService;
 import fi.johanneslares.yliopistobot.dao.ChatStateDao;
 import fi.johanneslares.yliopistobot.dao.FileChatStateDao;
 import fi.johanneslares.yliopistobot.dao.FileUserDataDao;
@@ -7,6 +9,8 @@ import fi.johanneslares.yliopistobot.dao.UserDataDao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -53,8 +57,6 @@ public class Yliopistobotti extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
-        //This could be multiple methods
-        System.out.println(update.getMessage().getChat().getFirstName() + ": " + update.getMessage().getText());
         long chatId = update.getMessage().getChatId();
         Chat chat = fcsd.getChatState(chatId);
         String message = update.getMessage().getText();
@@ -69,7 +71,10 @@ public class Yliopistobotti extends TelegramLongPollingBot {
                 }
                 if (message.equals("/luennot") && chat.getStartStatus() == 2) {
                     sendUserLessons(chat.getChatId());
+                } else if (chat.getStartStatus() == 2) {
+                    sendUserRoute(message, chat.getChatId());
                 }
+                
             }
         }
         
@@ -96,12 +101,9 @@ public class Yliopistobotti extends TelegramLongPollingBot {
     
     private void onHomeLocationReceived(String message, Chat chat) {
         User user = new User(chat.getChatId());
-        System.out.println("UserChatID: " + user.getChatId());
         user.setHomeLocation(message);
         user.setCoordinates(LocationService.getCoordinates(message));
         udd.updateUser(user);
-        System.out.println(user.toString());
-        System.out.println(LocationService.getCoordinates(message) + " Locationservice");
         sendMessage(chat.getChatId(), "Kiitos");
         chat.setStart(2);
         this.fcsd.updateChat(chat);
@@ -158,7 +160,6 @@ public class Yliopistobotti extends TelegramLongPollingBot {
             lesson.setEndTime(msg);
             chat.setLesson(lesson);
             User user = udd.getUser(chat.getChatId());
-            //System.out.println("First lesson of User: " + user.getLessons().get(0).toString());
             user.addLesson(lesson);
             udd.updateUser(user);
             sendMessage(chat.getChatId(), "Kiitos, luentosi on lisätty. Voit lisätä uuden luennon komennolla /lisaa. Voit tarkastella luentojasi komennolla /luennot");
@@ -172,7 +173,29 @@ public class Yliopistobotti extends TelegramLongPollingBot {
         List<Lesson> lessons = user.getLessons();
         for (Lesson lesson : lessons) {
             sendMessage(chatId, lesson.toString());
-            sendMessage(chatId, ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), "", lesson.getName()));
         }
+    }
+    
+    private void sendUserRoute(String message, long chatId) {
+        String[] places = message.split(":");
+        User user = udd.getUser(chatId);
+        String route = "";
+        String start = places[0] + "::" + LocationService.getCoordinates(places[0]);
+        if (places.length == 1) {
+            route = getRoute(user.getLocationString(), start, places[0]);
+        } else if (places[1].toLowerCase().equals("koti")) {
+            route = getRoute(start, user.getLocationString(), places[1]);
+        } else if (places.length == 2) {
+            String end = places[1] + "::" + LocationService.getCoordinates(places[1]);
+            route = getRoute(start, end, places[1]);
+        }
+        
+        sendMessage(chatId, route);
+    }
+    private String getRoute(String start, String end, String name) {
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        Itinerary i = ItineraryService.getItinerary(start, end, sdf.format(d), name);
+        return i.getItinerary();
     }
 }

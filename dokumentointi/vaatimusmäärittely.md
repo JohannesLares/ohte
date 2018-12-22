@@ -2,7 +2,7 @@
 
 
 ## Sovelluksen tarkoitus
-Sovellus on telegram botti. Sovellus lähettää aamuisin kysymyksen telegram viestinä, johon vastaamala saa tiedot, millä julkisen liikenteen välineellä ja mihin aikaan pitää lähteä, jotta ehtii hyvin päivän ensimmäiselle luennolle.
+Sovellus on telegram botti. Sovellus lähettää aamuisin reittiohjeet luennolle telegram viestinä.
 
 ## Käyttäjät
 Sovelluksessa tulee olemaan aluksi vain normaaleja käyttäjiä.
@@ -14,14 +14,12 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 * Käyttäjän tulee pystyä lisäämään tarvittavat tiedot
   * Käyttäjä voi lisätä omat luentonsa (missä, monelta, mikä?)
   * Käyttäjä voi lisätä oman asuinpaikkansa
-    * Näissä käy normaali JSON
-* Botin tulee kysyä käyttäjältä luentopäivinä ajoissa, halutaanko reittitietoja
-  * Tähän vastaamalla Kyllä, botti tarjoaa reittitiedot
-  * Tähän vastaamalla Ei, botti ei jatka käyttäjän häiritsemistä
+* Botin tulee lähettää reittitiedot luennolle tarpeeksi aikaisin (esim. 30min) ennen lähtöä.
 * Käyttäjä voi myös kysyä muuna aikana reittitietoja
   * Esim. viestillä Exactum saa reitin kotoa Exactumiin
-  * Viestillä Exactum viikki saa reitin Exactumista Viikkiin.
-  * Viestillä Exactum Koti saa reitin Exactumista kotiin
+  * Viestillä Exactum:viikki saa reitin Exactumista Viikkiin.
+  * Viestillä Exactum:Koti saa reitin Exactumista kotiin
+  * Erottimena voi olla esim. kaksoispiste
 * Reitit tarjotaan HSL toiminta-alueen sisältä
 
 ## Jatkokehitys
@@ -35,8 +33,7 @@ Kuka tahansa telegram käyttäjä voi alkaa käyttämään bottia.
 Sovellus on viestipohjainen. Tässä kaksi esimerkkiä.
 
 ```
-Oletko menossa aamun ensimmäiselle luennolle?
-**Kyllä**
+(Luento alkaa kello 10:00)
 Jotta olisit paikassa Exactum kello 10.00, sinun tulee:
 Lähteä kotoa kävelemään kello 9.15.
 Ottaa linja-auto 741k pysäkiltä Viikki (osoite) kello 9.30.

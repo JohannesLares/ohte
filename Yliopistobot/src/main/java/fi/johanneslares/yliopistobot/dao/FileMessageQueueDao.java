@@ -5,24 +5,27 @@
  */
 package fi.johanneslares.yliopistobot.dao;
 
-import com.google.gson.*;
-import fi.johanneslares.yliopistobot.Chat;
+import com.google.gson.Gson;
+import fi.johanneslares.yliopistobot.Message;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author jlares
  */
-public class FileChatStateDao implements ChatStateDao {
+public class FileMessageQueueDao implements MessageQueueDao {
+
+    private String file = "MessageQueue.json";
     
-    private String file = "./chatstate.json";
     @Override
-    public long createChat(Chat chat) {
+    public void addMessage(Message message) {
         Gson gson = new Gson();
-        String json = gson.toJson(chat);
+        String json = gson.toJson(message);
         try {
             FileWriter writer = new FileWriter(new File(file), true);
             writer.write(json + "\n");
@@ -30,51 +33,52 @@ public class FileChatStateDao implements ChatStateDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return chat.getChatId();
     }
 
     @Override
-    public Chat getChatState(long chatId) {
+    public List<Message> getMessages() {
         Gson gson = new Gson();
-        Chat chat = new Chat();
+        List<Message> messages = new ArrayList<>();
         try {
             FileReader reader = new FileReader(new File(file));
             BufferedReader br = new BufferedReader(reader);
             String line;
             boolean found = false;
             while ((line = br.readLine()) != null) {
-                chat = gson.fromJson(line, Chat.class);
-                if (chat.getChatId() == chatId) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                chat.setChatId(0);
-                chat.setStart(-1);
+                Message message = gson.fromJson(line, Message.class);
+                messages.add(message);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return chat;
+        return messages;
+    }
+
+    @Override
+    public List<Message> getMessagesWithSendTime(long time) {
+        List<Message> messagesWithTime = new ArrayList<>();
+        List<Message> messages = getMessages();
+        for (Message m : messages) {
+            if (m.getSendTime() == time) {
+                messagesWithTime.add(m);
+            }
+        }
+        return messagesWithTime;
     }
     
     @Override
-    public boolean updateChat(Chat chat) {
+    public void deleteMessagesWithSendTime(long time) {
         Gson gson = new Gson();
-        boolean stat = false;
         try {
             FileReader reader = new FileReader(new File(file));
             BufferedReader br = new BufferedReader(reader);
             String line;
-            Chat fileChat;
+            Message fileMessage;
             String content = "";
             while ((line = br.readLine()) != null) {
-                fileChat = gson.fromJson(line, Chat.class);
-                if (fileChat.getChatId() == chat.getChatId()) {
-                    content += gson.toJson(chat) + "\n";
-                    stat = true;
-                    break;
+                fileMessage = gson.fromJson(line, Message.class);
+                if (fileMessage.getSendTime() == time) {
+                    continue;
                 } else {
                     content += line + "\n";
                 }
@@ -85,7 +89,5 @@ public class FileChatStateDao implements ChatStateDao {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return stat;
     }
-    
 }

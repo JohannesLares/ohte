@@ -1,9 +1,10 @@
-package fi.johanneslares.yliopistobot;
+package fi.johanneslares.yliopistobot.services;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import fi.johanneslares.yliopistobot.Itinerary;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -65,8 +66,8 @@ public class ItineraryService {
      * @return Message with itinerary suggestion
      */
     
-    public static String getItinerary(String start, String end, String time, String name) {
-        String result = "";
+    public static Itinerary getItinerary(String start, String end, String time, String name) {
+        Itinerary result = null;
         time += ":00";
         String date = getDateAsString();
         System.out.println(date + " " + time);
@@ -90,7 +91,6 @@ public class ItineraryService {
         out.writeBytes(query);
         out.flush();
         out.close();
-        System.out.println(con.getResponseCode() + " HSL response code");
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
@@ -101,23 +101,28 @@ public class ItineraryService {
         return new Gson().fromJson(content.toString(), JsonObject.class);
     }
     
-    private static String handleItineraryPlans(JsonObject obj, String time, String name) {
+    private static Itinerary handleItineraryPlans(JsonObject obj, String time, String name) {
         String ret = "Reitti luennolle " + name + " kello " + time + "\n";
-        JsonObject firstItinerary = obj.get("data").getAsJsonObject().get("plan").getAsJsonObject().get("itineraries").getAsJsonArray().get(0).getAsJsonObject();
-        JsonArray legs = firstItinerary.get("legs").getAsJsonArray();
-        for (JsonElement leg : legs) {
-            JsonObject object = leg.getAsJsonObject();
-            String headsign = "";
-            System.out.println(object.get("trip").isJsonNull());
-            if (!object.get("trip").isJsonNull()) {
-                headsign = " " + object.get("trip").getAsJsonObject().get("routeShortName").getAsString() + " kohti " + object.get("trip").getAsJsonObject().get("tripHeadsign").getAsString();
+        long gotime = 0L;
+        System.out.println(obj);
+        if (obj.get("data").getAsJsonObject().get("plan").getAsJsonObject().get("itineraries").getAsJsonArray().size() > 0) {
+            JsonObject firstItinerary = obj.get("data").getAsJsonObject().get("plan").getAsJsonObject().get("itineraries").getAsJsonArray().get(0).getAsJsonObject();
+            JsonArray legs = firstItinerary.get("legs").getAsJsonArray();
+            gotime = legs.get(0).getAsJsonObject().get("startTime").getAsLong();
+            for (JsonElement leg : legs) {
+                JsonObject object = leg.getAsJsonObject();
+                String headsign = "";
+                System.out.println(object.get("trip").isJsonNull());
+                if (!object.get("trip").isJsonNull()) {
+                    headsign = " " + object.get("trip").getAsJsonObject().get("routeShortName").getAsString() + " kohti " + object.get("trip").getAsJsonObject().get("tripHeadsign").getAsString();
+                }
+                ret += "\nMene " + getMethodOfTransportation(object.get("mode").getAsString()) + headsign + " paikasta " + object.get("from").getAsJsonObject().get("name").getAsString() + " paikkaan "
+                        + object.get("to").getAsJsonObject().get("name").getAsString() + " kello " + getTimeAsString(object.get("startTime").getAsLong()) + "\n";
             }
-            ret += "\nMene " + getMethodOfTransportation(object.get("mode").getAsString()) + headsign + " paikasta " + object.get("from").getAsJsonObject().get("name").getAsString() + " paikkaan "
-                    + object.get("to").getAsJsonObject().get("name").getAsString() + " kello " + getTimeAsString(object.get("startTime").getAsLong()) + "\n";
-            // System.out.println(leg.getAsJsonObject().get("mode") + leg.getAsJsonObject().get("from").getAsJsonObject().get("name").getAsString());
+        } else {
+            ret += "Ei reittiä";
         }
-        // System.out.println(firstItinerary.get("legs").getAsJsonArray().get(0));
-        return ret;
+        return new Itinerary(ret, gotime);
     }
     
     

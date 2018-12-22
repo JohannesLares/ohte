@@ -5,16 +5,17 @@
  */
 package fi.johanneslares.yliopistobot;
 
+import fi.johanneslares.yliopistobot.threads.AutoSender;
+import fi.johanneslares.yliopistobot.threads.AutoMessager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 public class Main {
     /**
      * This class is only to start the bot
-     * 
+     * If you want to stop the bot, you must terminate this program. Else the threads will be left running.
      * @param args 
      */
     public static void main(String[] args) {
@@ -26,6 +27,7 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        AutoMessager m = new AutoMessager();
         AutoSender s = new AutoSender("Eka");
     }
 }

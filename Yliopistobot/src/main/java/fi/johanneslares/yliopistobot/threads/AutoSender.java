@@ -3,28 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johanneslares.yliopistobot;
+package fi.johanneslares.yliopistobot.threads;
 
+import fi.johanneslares.yliopistobot.Itinerary;
+import fi.johanneslares.yliopistobot.services.ItineraryService;
+import fi.johanneslares.yliopistobot.Lesson;
+import fi.johanneslares.yliopistobot.Message;
+import fi.johanneslares.yliopistobot.User;
+import fi.johanneslares.yliopistobot.Yliopistobotti;
+import fi.johanneslares.yliopistobot.dao.FileMessageQueueDao;
 import fi.johanneslares.yliopistobot.dao.FileUserDataDao;
+import fi.johanneslares.yliopistobot.dao.MessageQueueDao;
 import fi.johanneslares.yliopistobot.dao.UserDataDao;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * This class is responsible of sending automatic messages to chats
+ * This class is responsible of fetching automatically itineraries
  * @author jlares
  */
-public class AutoSender implements Runnable {
+public class AutoSender extends Thread {
     private Thread t;
     private String threadName;
     private UserDataDao udd = new FileUserDataDao();
-    private long fetchBeforeArrive = 7200;
+    private long fetchBeforeArrive = 14400;
     private Yliopistobotti bot = new Yliopistobotti();
     private boolean test = false;
 
@@ -34,7 +39,7 @@ public class AutoSender implements Runnable {
      */
     public AutoSender(String name) {
         this.threadName = name;
-        this.run();
+        this.start();
     }
     
     /**
@@ -45,26 +50,18 @@ public class AutoSender implements Runnable {
     public AutoSender(String name, boolean test) {
         this.threadName = name;
         this.test = test;
-        this.run();
+        this.start();
     }
     
     /**
      * Start new thread. This method loops through every user and their lessons and gets itinerary if necessary.
      */
     @Override
-    public void run() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm u");
+    public void run() {        
         while (true) {
             try {
-                String date = sdf.format(new Date());
                 List<User> users = udd.getUsers();
-                for (User user : users) {
-                    for (Lesson lesson : user.getLessons()) {
-                        if (lesson.getDayOfTheWeek() == Integer.parseInt(date.split(" ")[1])) {
-                            this.getSuggestedRoute(lesson.getStartTimeHhMm(), user, lesson);
-                        }
-                    }
-                }
+                this.loopThroughUsers(users);
                 Thread.sleep(1000);
                 if (test) {
                     break;
@@ -75,12 +72,16 @@ public class AutoSender implements Runnable {
         }
     }
     
-    /**
-     * 
-     * @return thread name 
-     */
-    public String getName() {
-        return this.threadName;
+    private void loopThroughUsers(List<User> users) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm u");
+        String date = sdf.format(new Date());        
+        for (User user : users) {
+            for (Lesson lesson : user.getLessons()) {
+                if (lesson.getDayOfTheWeek() == Integer.parseInt(date.split(" ")[1])) {
+                    this.getSuggestedRoute(lesson.getStartTimeHhMm(), user, lesson);
+                }
+            }
+        }
     }
     
     /**
@@ -101,10 +102,7 @@ public class AutoSender implements Runnable {
         long unixTime = System.currentTimeMillis() / 1000L;
         long unixTime2 = date.getTime() / 1000L;
         if (unixTime + fetchBeforeArrive == unixTime2) {
-            System.out.println((System.currentTimeMillis() + fetchBeforeArrive) + " | " + date.getTime());
             getRouteAndQueue(user, lesson);
-        } else {
-            System.out.println((unixTime + fetchBeforeArrive) + " | " + unixTime2);
         }
     }
     
@@ -114,10 +112,9 @@ public class AutoSender implements Runnable {
      * @param lesson Lesson, where user is going
      */
     public void getRouteAndQueue(User user, Lesson lesson) {
-        //TODO another thread to handle getItinerary.
-        System.out.println("Kaksi tuntia aikaa, ennen kuin luento " + lesson.getName() + " alkaa chatissa " + user.getChatId());
-        String msg = ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), lesson.getStartTime().split(" ")[0], lesson.getName());
-        bot.sendMessage(user.getChatId(), msg);
+        Itinerary msg = ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), lesson.getStartTime().split(" ")[0], lesson.getName());
+        MessageQueueDao mqd = new FileMessageQueueDao();
+        mqd.addMessage(new Message(user.getChatId(), msg.getItinerary(), msg.getGotime()-1800L));        
     }
     
 }

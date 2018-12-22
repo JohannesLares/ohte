@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.johanneslares.yliopistobot;
+package fi.johanneslares.yliopistobot.services;
 
+import fi.johanneslares.yliopistobot.Itinerary;
+import fi.johanneslares.yliopistobot.services.ItineraryService;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,8 +19,8 @@ public class ItineraryServiceTest {
 
     @Test
     public void getItineraryWorks() {
-        String msg = ItineraryService.getItinerary("Pietari Kalmin katu 5", "Pasteurinkatu 1c65", "19:00", "JUNITTEST");
-        assertEquals(msg.contains("JUNITTEST"), false);
+        Itinerary i = ItineraryService.getItinerary("Pietari Kalmin Katu 5", "Yliopistokatu 1", "10:00", "TEST");
+        assertNotNull(i);
     }
     
     @Test

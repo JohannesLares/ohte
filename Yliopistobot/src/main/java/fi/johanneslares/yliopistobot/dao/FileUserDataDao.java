@@ -29,7 +29,6 @@ public class FileUserDataDao implements UserDataDao {
         try {
             FileWriter writer = new FileWriter(new File(file), true);
             writer.write(json + "\n");
-            System.out.println(json + "\n");
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +70,6 @@ public class FileUserDataDao implements UserDataDao {
             String content = "";
             while ((line = br.readLine()) != null) {
                 fileUser = gson.fromJson(line, User.class);
-                System.out.println(line);
                 if (fileUser.getChatId() == user.getChatId()) {
                     content += gson.toJson(user) + "\n";
                     break;
