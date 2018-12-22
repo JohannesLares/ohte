@@ -13,7 +13,7 @@ Osa reittitiedoista tarjotaan automaattisesti kysymällä käyttäjältä, onko 
 
 [Arkkitehtuuri](https://github.com/JohannesLares/ohte/blob/master/dokumentointi/arkkitehtuuri.md)
 
-[Release 0.6.0](https://github.com/JohannesLares/ohte/releases/tag/0.6.0)
+[Loppurelease](https://github.com/JohannesLares/ohte/releases/tag/1.0.0)
 
 [Käyttöohjeet](https://github.com/JohannesLares/ohte/blob/master/dokumentointi/kayttoohje.md)
 ### Huomioitavaa testaajalle
