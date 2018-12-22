@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class AutoMessager extends Thread {
     
-    public AutoMessager () {
+    public AutoMessager() {
         this.start();
     }
 
@@ -27,7 +27,7 @@ public class AutoMessager extends Thread {
         MessageQueueDao mqd = new FileMessageQueueDao();
         while (true) {
             try {
-                long time = System.currentTimeMillis()/1000L;
+                long time = System.currentTimeMillis() / 1000L;
                 List<Message> messages = mqd.getMessagesWithSendTime(time);
                 mqd.deleteMessagesWithSendTime(time);
                 for (Message message : messages) {

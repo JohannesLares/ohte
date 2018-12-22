@@ -16,5 +16,5 @@ public interface ChatStateDao {
     
     Chat getChatState(long chatId);
     
-    boolean updateChat(Chat chat);
+    void updateChat(Chat chat);
 }

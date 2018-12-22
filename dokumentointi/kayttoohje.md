@@ -4,8 +4,8 @@ Github repositorio sisältää kaikki tarvittavat tiedostot, jotta voit käyttä
 
 ## Konfigurointi
 
-Jos ohjelma ladataan .jar tiedostona, on juurihakemistoon luotava _bot.conf_, _user.json_ ja _chatstate.json_.
-Jätä _user.json_ ja _chatstate.json_ tiedostot tyhjiksi, mutta muokkaa _bot.conf_:
+Jos ohjelma ladataan .jar tiedostona, on juurihakemistoon luotava _bot.conf_, _user.json_ _MessageQueue.json_ ja _chatstate.json_.
+Jätä _MessageQueue.json_,  _user.json_ ja _chatstate.json_ tiedostot tyhjiksi, mutta muokkaa _bot.conf_:
 ```
 Bot_Key=<Insert key here>
 ```

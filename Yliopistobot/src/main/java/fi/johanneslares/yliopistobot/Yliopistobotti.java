@@ -57,9 +57,13 @@ public class Yliopistobotti extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
-        long chatId = update.getMessage().getChatId();
-        Chat chat = fcsd.getChatState(chatId);
+        Chat chat = fcsd.getChatState(update.getMessage().getChatId());
         String message = update.getMessage().getText();
+        this.handleInput(chat, message);        
+    }
+    
+    private void handleInput(Chat chat, String message) {
+        long chatId = chat.getChatId();
         if (message.equals("/start") && chat.getChatId() == 0) {
             this.createNewUser(chatId);
         } else {
@@ -67,7 +71,7 @@ public class Yliopistobotti extends TelegramLongPollingBot {
                 this.onHomeLocationReceived(message, chat);
             } else {
                 if (message.equals("/lisaa") || (chat.getStartStatus() > 2 && chat.getStartStatus() < 10)) {
-                    addNewLesson(chat, update.getMessage().getText());
+                    addNewLesson(chat, message);
                 }
                 if (message.equals("/luennot") && chat.getStartStatus() == 2) {
                     sendUserLessons(chat.getChatId());
@@ -77,7 +81,6 @@ public class Yliopistobotti extends TelegramLongPollingBot {
                 
             }
         }
-        
     }
 
     /**
@@ -114,13 +117,16 @@ public class Yliopistobotti extends TelegramLongPollingBot {
      * Send message to specific chat
      * @param chatId Id of the telegram chat
      * @param msg message to send
+     * @return if message was sent or not
      */
-    public void sendMessage(long chatId, String msg) {
+    public boolean sendMessage(long chatId, String msg) {
         SendMessage message = new SendMessage().setChatId(chatId).setText(msg);
         try {
             execute(message);
+            return true;
         } catch (TelegramApiException ex) {
             ex.printStackTrace();
+            return false;
         }
     }
     

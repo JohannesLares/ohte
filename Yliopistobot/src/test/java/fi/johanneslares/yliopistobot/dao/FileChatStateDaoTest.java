@@ -54,7 +54,6 @@ public class FileChatStateDaoTest {
         chat.setChatId(123456);
         this.chat.setStart(2);
         fstd.createChat(chat);
-        assertEquals(true, this.fstd.updateChat(chat));
         assertEquals(2, fstd.getChatState(123456).getStartStatus());
     }
     

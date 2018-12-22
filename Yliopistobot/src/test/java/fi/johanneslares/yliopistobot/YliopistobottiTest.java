@@ -23,4 +23,5 @@ public class YliopistobottiTest {
     public void getBotUsernameReturnsCorrectValue(){
         assertEquals("Yliopistobot", botti.getBotUsername());
     }
+    
 }

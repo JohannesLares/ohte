@@ -114,7 +114,7 @@ public class AutoSender extends Thread {
     public void getRouteAndQueue(User user, Lesson lesson) {
         Itinerary msg = ItineraryService.getItinerary(user.getLocationString(), lesson.getLocationString(), lesson.getStartTime().split(" ")[0], lesson.getName());
         MessageQueueDao mqd = new FileMessageQueueDao();
-        mqd.addMessage(new Message(user.getChatId(), msg.getItinerary(), msg.getGotime()-1800L));        
+        mqd.addMessage(new Message(user.getChatId(), msg.getItinerary(), msg.getGotime() - 1800L));        
     }
     
 }

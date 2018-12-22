@@ -21,7 +21,7 @@ public class Itinerary {
      * @param gotime When you should leave from home.
      */
     public Itinerary(String itinerary, long gotime) {
-        this.gotime = gotime/1000L;
+        this.gotime = gotime / 1000L;
         this.itinerary = itinerary;
     }
     

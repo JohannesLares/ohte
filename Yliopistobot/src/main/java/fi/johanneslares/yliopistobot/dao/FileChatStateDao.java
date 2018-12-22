@@ -11,6 +11,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -60,9 +63,8 @@ public class FileChatStateDao implements ChatStateDao {
     }
     
     @Override
-    public boolean updateChat(Chat chat) {
+    public void updateChat(Chat chat) {
         Gson gson = new Gson();
-        boolean stat = false;
         try {
             FileReader reader = new FileReader(new File(file));
             BufferedReader br = new BufferedReader(reader);
@@ -73,7 +75,6 @@ public class FileChatStateDao implements ChatStateDao {
                 fileChat = gson.fromJson(line, Chat.class);
                 if (fileChat.getChatId() == chat.getChatId()) {
                     content += gson.toJson(chat) + "\n";
-                    stat = true;
                     break;
                 } else {
                     content += line + "\n";
@@ -85,7 +86,16 @@ public class FileChatStateDao implements ChatStateDao {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return stat;
+    }
+    
+    private void write(String content) {
+        try {
+            FileWriter writer = new FileWriter(new File(file), false);
+            writer.write(content);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileChatStateDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
