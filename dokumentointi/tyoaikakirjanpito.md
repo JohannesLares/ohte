@@ -12,4 +12,6 @@
 |8.12| 4 | AutoSender koodaaminen |
 |11.12| 4 | Testien koodaaminen ja muuta koodin muokkaamista |
 |11.12| 3 | Dokumentaation luomista, JavaDoc |
-||29|Yhteensä|
+|21.12| 4 | Koodaamista |
+|22.12| 4 | Koodaamista ja dokumentointia|
+||37|Yhteensä|
