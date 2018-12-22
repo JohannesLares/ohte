@@ -36,7 +36,21 @@ On tärkeää, että alkamisajankohta annetaan oikeassa muodossa.
 
 Lähetä viesti _/luennot_ botille, niin botti listaa luentosi viesteinä.
 
+## Reitin hakeminen
+
+Voit hakea reitin kotoasi paikkaan X lähettämällä botille viestin: 
+```
+X
+```
+Voit myös hakea reitin kotiisi paikasta Y viestillä:
+```
+Y:koti
+```
+Voit myös hakea reitin paikasta A paikkaan B komennolla:
+```
+A:B
+```
+
 ## Käyttötarkoitus
 
-Botti tällä hetkellä katsoo kaksi tuntia ennen luennon alkamis ajankohtaa reittiohjeen kotoasi luennolle. Botti lähettää
-viestinä reitin, jolla olet luennon alkamisajankohtaan mennessä luentopaikalla. 
+Botti tällä hetkellä hakee neljä tuntia ennen luennon alkamisajankohtaa reitin luennolle ja laittaa reitin MessageQueueen. Sieltä se lähetetään automaattisesti 30 minuuttia ennen lähtöaikaa.
