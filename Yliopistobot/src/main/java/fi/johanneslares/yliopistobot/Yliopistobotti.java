@@ -59,27 +59,26 @@ public class Yliopistobotti extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Chat chat = fcsd.getChatState(update.getMessage().getChatId());
         String message = update.getMessage().getText();
-        this.handleInput(chat, message);        
+        if (message.equals("/start") && chat.getChatId() == 0) {
+            this.createNewUser(update.getMessage().getChatId());
+        } else {
+            this.handleInput(chat, message);    
+        }
     }
     
     private void handleInput(Chat chat, String message) {
         long chatId = chat.getChatId();
-        if (message.equals("/start") && chat.getChatId() == 0) {
-            this.createNewUser(chatId);
+        if (chat.getChatId() > 0 && chat.getStartStatus() < 2) {
+            this.onHomeLocationReceived(message, chat);
         } else {
-            if (chat.getChatId() > 0 && chat.getStartStatus() < 2) {
-                this.onHomeLocationReceived(message, chat);
-            } else {
-                if (message.equals("/lisaa") || (chat.getStartStatus() > 2 && chat.getStartStatus() < 10)) {
-                    addNewLesson(chat, message);
-                }
-                if (message.equals("/luennot") && chat.getStartStatus() == 2) {
-                    sendUserLessons(chat.getChatId());
-                } else if (chat.getStartStatus() == 2) {
-                    sendUserRoute(message, chat.getChatId());
-                }
-                
+            if (message.equals("/lisaa") || (chat.getStartStatus() > 2 && chat.getStartStatus() < 10)) {
+                addNewLesson(chat, message);
             }
+            if (message.equals("/luennot") && chat.getStartStatus() == 2) {
+                sendUserLessons(chat.getChatId());
+            } else if (chat.getStartStatus() == 2) {
+                sendUserRoute(message, chat.getChatId());
+            }    
         }
     }
 

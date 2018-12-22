@@ -5,7 +5,8 @@
  */
 package fi.johanneslares.yliopistobot;
 
-import static org.junit.Assert.assertEquals;
+import fi.johanneslares.yliopistobot.dao.FileChatStateDao;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
